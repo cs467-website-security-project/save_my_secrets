@@ -18,11 +18,11 @@ const rows = [
 ];
 
 
-export default function UserView () {
+export default function UserView() {
     const [id, setId] = useState(null)
     const [name, setName] = useState('Hillary')
     const [secrets, setSecrets] = useState(null)
-    
+
     return (
         <>
             <Typography variant="h6">
@@ -30,7 +30,7 @@ export default function UserView () {
             </Typography>
             <FormControl>
                 <InputLabel htmlFor="my-input">Add a new secret</InputLabel>
-                <Input id="my-input" aria-describedby="my-helper-text" fullWidth="true" type="text"/>
+                <Input id="my-input" aria-describedby="my-helper-text" fullWidth="true" type="text" />
                 <Button type="submit">Submit</Button>
             </FormControl>
             <TableContainer>
