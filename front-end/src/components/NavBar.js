@@ -10,9 +10,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     alignItems: 'flex-end', // TODO: fix this, not working
   },
-  title: {
-    // flexGrow: 1,
-    // textAlign: 'left',
+  link: {
+    color: 'white',
+    textDecoration: 'none',
   },
 }));
 
@@ -24,14 +24,19 @@ export default function NavBar() {
       <AppBar position="static">
         <Toolbar>
           <Button>
-            <NavLink to="/" activeStyle={{ color: "white" }}>
+            <NavLink to="/" className={classes.link}>
               Home
-          </NavLink>
+            </NavLink>
           </Button>
           <Button>
-            <NavLink to="/About" activeStyle={{ color: "white" }}>
+            <NavLink to="/About" className={classes.link}>
               About
-          </NavLink>
+            </NavLink>
+          </Button>
+          <Button>
+            <NavLink to="/User" className={classes.link}>
+              UserView
+            </NavLink>
           </Button>
         </Toolbar>
       </AppBar>

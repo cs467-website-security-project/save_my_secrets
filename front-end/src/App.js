@@ -7,8 +7,9 @@ import {
   Route,
   HashRouter
 } from 'react-router-dom';
-import About from './pages/About';
-import SignIn from './pages/SignIn';
+import About from './components/About';
+import SignIn from './components/SignIn';
+import UserView from './components/UserView';
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Box my={4}>
           <Route exact path="/" component={SignIn} />
           <Route path="/about" component={About} />
+          <Route path="/user" component={UserView} />
         </Box>
       </HashRouter>
     </Container>
