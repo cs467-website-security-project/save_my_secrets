@@ -11,7 +11,6 @@ import About from './components/About';
 import SignIn from './components/SignIn';
 import UserView from './components/UserView';
 
-
 export default function App() {
   return (
     <Container maxWidth="sm">
