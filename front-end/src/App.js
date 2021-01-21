@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import About from './components/About';
 import SignIn from './components/SignIn';
-import UserView from './components/UserView';
 
 export default function App() {
   return (
@@ -19,7 +18,6 @@ export default function App() {
         <Box my={4}>
           <Route exact path="/" component={SignIn} />
           <Route path="/about" component={About} />
-          <Route path="/user" component={UserView} />
         </Box>
       </HashRouter>
     </Container>
