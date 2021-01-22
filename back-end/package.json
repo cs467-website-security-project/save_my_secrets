@@ -1,0 +1,15 @@
+{
+  "name": "savemysecrets-back-end",
+  "version": "1.0.0",
+  "description": "Back-end server for savemysecrets",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Chunghee Kim",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
