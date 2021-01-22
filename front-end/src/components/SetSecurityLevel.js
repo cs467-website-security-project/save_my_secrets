@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -40,7 +39,6 @@ export default function SetSecurityLevel() {
                 Security Level
             </Button>
             <FormControl className={classes.formControl}>
-                {/* <InputLabel id="demo-controlled-open-select-label">Age</InputLabel> */}
                 <Select
                     labelId="secLevel-label"
                     id="secLevel"
