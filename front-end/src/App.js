@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import NavBar from './components/NavBar';
 
-function App() {
+import {
+  Route,
+  HashRouter
+} from 'react-router-dom';
+import About from './components/About';
+import SignIn from './components/SignIn';
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="sm">
+      <HashRouter>
+        <NavBar />
+        <Box my={4}>
+          <Route exact path="/" component={SignIn} />
+          <Route path="/about" component={About} />
+        </Box>
+      </HashRouter>
+    </Container>
   );
 }
-
-export default App;
