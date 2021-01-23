@@ -50,6 +50,7 @@ export default function AddSecretsModal() {
         rows={4}
         defaultValue="My secret is..."
         variant="outlined"
+        inputProps={{ maxLength: 120 }}
       />
       <button type="button" onClick={handleAdd}>
         Add the secret
