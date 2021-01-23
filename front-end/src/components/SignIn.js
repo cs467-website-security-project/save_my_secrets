@@ -9,7 +9,6 @@ import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import SetSecurityLevel from './SetSecurityLevel';
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     //display: 'block',//TODO: center buttons?
-  }
+  },
 }));
 
 export default function SignIn() {
@@ -62,20 +61,12 @@ export default function SignIn() {
             autoComplete="current-password"
           />
           <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
+            <Button type="submit" variant="contained" color="primary">
               Sign In
             </Button>
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary"
-            >
+            <Button type="submit" variant="outlined" color="primary">
               Register
-          </Button>
+            </Button>
           </ButtonGroup>
           <Grid container>
             <Grid item xs>

@@ -1,12 +1,8 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import { Route, HashRouter } from 'react-router-dom';
 import NavBar from './components/NavBar';
-
-import {
-  Route,
-  HashRouter
-} from 'react-router-dom';
 import About from './components/About';
 import SignIn from './components/SignIn';
 
