@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -8,6 +9,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import SetSecurityLevel from './SetSecurityLevel';
+import creds from '../config/default.json';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,24 +31,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+const SignIn = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const { username, password } = e.target.elements;
+    console.log({ username: username.value, password: password.value });
+
+    const adminUser = creds.admin.username;
+    const adminPass = creds.admin.password;
+
+    if (adminUser === username.value && adminPass === password.value) {
+      history.push('/admin');
+    } else {
+      console.log('fail');
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <div className={classes.paper}>
         <SetSecurityLevel />
         <InfoOutlinedIcon color="primary" fontSize="large" />
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleLogin}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
             autoFocus
           />
           <TextField
@@ -79,4 +96,6 @@ export default function SignIn() {
       </div>
     </Container>
   );
-}
+};
+
+export default SignIn;

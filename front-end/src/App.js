@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import About from './components/About';
 import SignIn from './components/SignIn';
 import User from './components/User';
+import Admin from './components/Admin';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route exact path="/" component={SignIn} />
           <Route path="/about" component={About} />
           <Route path="/user" component={User} />
+          <Route path="/admin" component={Admin} />
         </Box>
       </HashRouter>
     </Container>

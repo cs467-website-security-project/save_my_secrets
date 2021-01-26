@@ -16,5 +16,6 @@ module.exports = {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'eol-last': ['error', 'always'],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'no-console': [0],
   },
 };
