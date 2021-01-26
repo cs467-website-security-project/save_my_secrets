@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   buttons: {
-    //display: 'block',//TODO: center buttons?
+    // display: 'block',//TODO: center buttons?
   },
 }));
 
@@ -70,7 +70,7 @@ export default function SignIn() {
           </ButtonGroup>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
