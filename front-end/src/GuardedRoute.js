@@ -5,12 +5,14 @@ import SigninFail from './components/SigninFail';
 
 const GuardedRoute = ({ component: Component, auth, signInAttempt }) => (
   <Route
-    render={(props) =>
-      auth === true ? (
-        <Component {...props} />
-      ) : (
-        <SigninFail auth={auth} signInAttempt={signInAttempt} />
-      )
+    render={
+      (props) =>
+        auth === true ? (
+          <Component {...props} />
+        ) : (
+          <SigninFail auth={auth} signInAttempt={signInAttempt} />
+        )
+      // eslint-disable-next-line react/jsx-curly-newline
     }
   />
 );
