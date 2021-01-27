@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import PropTypes from 'prop-types';
 import SetSecurityLevel from './SetSecurityLevel';
 import creds from '../config/default.json';
 
@@ -31,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = () => {
+const SignIn = (props) => {
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -44,7 +45,8 @@ const SignIn = () => {
     const adminPass = creds.admin.password;
 
     if (adminUser === username.value && adminPass === password.value) {
-      history.push('/admin');
+      // history.push('/admin');
+      props.onAuthChange(true);
     } else {
       console.log('fail');
     }
@@ -96,6 +98,10 @@ const SignIn = () => {
       </div>
     </Container>
   );
+};
+
+SignIn.propTypes = {
+  onAuthChange: PropTypes.func.isRequired,
 };
 
 export default SignIn;
