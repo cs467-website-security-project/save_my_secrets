@@ -10,8 +10,8 @@ import Admin from './components/Admin';
 import GuardedRoute from './GuardedRoute';
 
 const App = () => {
-  const [isAuthenticated, setisAuthenticated] = useState(false);
-  const [signInAttempt, setsignInAttempt] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [signInAttempt, setSignInAttempt] = useState(false);
 
   return (
     <Container maxWidth="sm">
@@ -23,8 +23,8 @@ const App = () => {
             render={(props) => (
               <SignIn
                 {...props}
-                onAuthChange={setisAuthenticated}
-                signInAttempt={setsignInAttempt}
+                onAuthChange={setIsAuthenticated}
+                signInAttempt={setSignInAttempt}
               />
             )}
           />
