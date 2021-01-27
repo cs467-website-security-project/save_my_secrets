@@ -1,14 +1,24 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SigninFail from './components/SigninFail';
 
-const GuardedRoute = ({ component: Component, auth }) => (
-  <Route render={(props) => (auth === true ? <Component {...props} /> : <Redirect to="/" />)} />
+const GuardedRoute = ({ component: Component, auth, signInAttempt }) => (
+  <Route
+    render={(props) =>
+      auth === true ? (
+        <Component {...props} />
+      ) : (
+        <SigninFail auth={auth} signInAttempt={signInAttempt} />
+      )
+    }
+  />
 );
 
 GuardedRoute.propTypes = {
-  component: PropTypes.elementType.isRequired,
   auth: PropTypes.bool.isRequired,
+  signInAttempt: PropTypes.bool.isRequired,
+  component: PropTypes.elementType.isRequired,
 };
 
 export default GuardedRoute;

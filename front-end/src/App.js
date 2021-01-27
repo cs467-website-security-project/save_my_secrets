@@ -11,6 +11,7 @@ import GuardedRoute from './GuardedRoute';
 
 const App = () => {
   const [isAuthenticated, setisAuthenticated] = useState(false);
+  const [signInAttempt, setsignInAttempt] = useState(false);
 
   return (
     <Container maxWidth="sm">
@@ -19,11 +20,22 @@ const App = () => {
         <Box my={4}>
           <Route
             path="/"
-            render={(props) => <SignIn {...props} onAuthChange={setisAuthenticated} />}
+            render={(props) => (
+              <SignIn
+                {...props}
+                onAuthChange={setisAuthenticated}
+                signInAttempt={setsignInAttempt}
+              />
+            )}
           />
           <Route path="/about" component={About} />
           <Route path="/user" component={User} />
-          <GuardedRoute path="/admin" component={Admin} auth={isAuthenticated} />
+          <GuardedRoute
+            path="/admin"
+            component={Admin}
+            auth={isAuthenticated}
+            signInAttempt={signInAttempt}
+          />
         </Box>
       </HashRouter>
     </Container>
