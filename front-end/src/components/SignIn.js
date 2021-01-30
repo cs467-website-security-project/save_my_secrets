@@ -7,7 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import PropTypes from 'prop-types';
 import SetSecurityLevel from './SetSecurityLevel';
+import creds from '../config/default.json';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -25,28 +27,43 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   buttons: {
-    //display: 'block',//TODO: center buttons?
+    // display: 'block',//TODO: center buttons?
   },
 }));
 
-export default function SignIn() {
+const SignIn = (props) => {
   const classes = useStyles();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const { username, password } = e.target.elements;
+    console.log({ username: username.value, password: password.value });
+
+    const adminUser = creds.admin.username;
+    const adminPass = creds.admin.password;
+
+    if (adminUser === username.value && adminPass === password.value) {
+      props.onAuthChange(true);
+    } else {
+      console.log('fail');
+      props.signInAttempt(true);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <div className={classes.paper}>
         <SetSecurityLevel />
         <InfoOutlinedIcon color="primary" fontSize="large" />
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleLogin}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
             autoFocus
           />
           <TextField
@@ -70,13 +87,22 @@ export default function SignIn() {
           </ButtonGroup>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
+      <br />
+      <br />
     </Container>
   );
-}
+};
+
+SignIn.propTypes = {
+  onAuthChange: PropTypes.func.isRequired,
+  signInAttempt: PropTypes.func.isRequired,
+};
+
+export default SignIn;
