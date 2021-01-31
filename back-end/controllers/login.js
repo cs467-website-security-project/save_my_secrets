@@ -5,17 +5,17 @@ const { queryDB } = require('../helpers/db-helpers');
 
 // Existing user
 router.post('/login', [
-    check('email').exists().isEmail().normalizeEmail(),
+    check('username').exists(),
     check('password').exists()
 ], async function (req, res, next){
     try {
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
-        const query = `SELECT password, id FROM Users WHERE email = ${email}`;
+        const query = `SELECT password, id FROM Users WHERE username = ${username}`;
         const results = await queryDB(query);
     
         if(!dbResults) {
-            return res.status(404).send('Not found.');
+            return res.status(401).send('Not found.');
         }
     
         if(results.password === password) {
@@ -30,26 +30,26 @@ router.post('/login', [
 
 // Register new user
 router.post('/', [
-    check('email').exists().isEmail().normalizeEmail(),
+    check('username').exists(),
     check('password').exists()
 ], async function(req, res, next) {
     try {
-        const { email } = req.body;
+        const { username } = req.body;
 
         // check db
-        const queryForExisting = `SELECT id FROM Users WHERE email = ${email}`;
+        const queryForExisting = `SELECT id FROM Users WHERE username = ${username}`;
         const existingUser = await queryDB(queryForExisting);
 
         if(existingUser) {
-            return res.status(400).send('This email is already registered.')
+            return res.status(400).send('This username is already registered.')
         }
 
         const { password } = req.body;
-        const queryToRegister = `INSERT INTO Users (${email}, ${password})`;
+        const queryToRegister = `INSERT INTO Users (${username}, ${password})`;
         const resultsOfRegister = await queryDB(queryToRegister);
         // will be undef. if there's an error
         if(!resultsOfRegister) {
-            return res.status(401).send('Error registering.');
+            return res.status(500).send('Error registering.');
         }
 
         return res.status(200).send('Registered');
