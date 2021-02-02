@@ -8,8 +8,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import SetSecurityLevel from './SetSecurityLevel';
-import creds from '../config/default.json';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,15 +39,27 @@ const SignIn = (props) => {
     const { username, password } = e.target.elements;
     console.log({ username: username.value, password: password.value });
 
-    const adminUser = creds.admin.username;
-    const adminPass = creds.admin.password;
+    const loginCreds = new URLSearchParams();
+    loginCreds.append('username', username.value);
+    loginCreds.append('password', password.value);
 
-    if (adminUser === username.value && adminPass === password.value) {
-      props.onAuthChange(true);
-    } else {
-      console.log('fail');
-      props.signInAttempt(true);
-    }
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    };
+
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVICE}/login`, loginCreds, config).then((res) => {
+      if (res.status === 200) {
+        console.log('SUCCESS');
+        props.onAuthChange(true);
+      } else if (res.status === 401) {
+        console.log('Invalid credentials');
+        props.signInAttempt(true);
+      } else {
+        console.log('Issue with Authentication server');
+      }
+    });
   };
 
   return (
