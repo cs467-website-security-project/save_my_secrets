@@ -7,8 +7,7 @@ router.post("/login", async function (req, res, next) {
   try {
     const { username, password } = req.body;
 
-    const query =
-      "SELECT password, user_id FROM Users WHERE username = 'admin'";
+    const query = `SELECT password, user_id FROM Users WHERE username = '${username}'`;
     const results = await queryDB(query);
 
     if (!results) {
@@ -16,7 +15,7 @@ router.post("/login", async function (req, res, next) {
     }
 
     if (results[0].password === password) {
-      return res.status(200).send("Success");
+      return res.status(200).send(results[0].user_id.toString());
     } else {
       return res.status(403).send("Bad password");
     }

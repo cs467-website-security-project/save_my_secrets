@@ -1,16 +1,15 @@
 const mysql = require("mariadb");
+const config = require("config");
+
 // Note that configuration is dependent on user's mysql/db setup
 let pool = mysql.createPool({
-  connectionLimit: 10,
-  host: "localhost",
-  database: "sms",
-  user: "root",
-  password: "root",
-  port: "3306",
+  connectionLimit: config.get("db.connectionLimit"),
+  host: config.get("db.host"),
+  database: config.get("db.databaseName"),
+  user: config.get("db.username"),
+  password: config.get("db.password"),
+  port: config.get("db.port"),
 });
-
-const test = pool.query("select * from users");
-console.log(test);
 
 async function queryDB(query) {
   try {
