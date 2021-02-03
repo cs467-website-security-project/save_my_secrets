@@ -2,7 +2,7 @@
 
 - Setup MariaDB (v.10.5.8)
 - Setup database and run `CREATE DATABASE {$DB_NAME}` to create DB
-- Run `mysql -u `_username_`-p`_dbname_` > /back-end/database/db.sql`
+- Run `mysql -u `_username_`-p`_dbname_` < /back-end/database/db.sql`
 - Create a `config/default.json` file and copy and paste information while overriding parameters
 
 ```
