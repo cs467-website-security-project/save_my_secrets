@@ -1,13 +1,13 @@
 
 CREATE TABLE Users (
-  user_id  INT,
+  user_id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(255),
   password VARCHAR(255),
   PRIMARY KEY (user_id)
 );
 
 CREATE TABLE Secrets (
-  secret_id INT,
+  secret_id INT NOT NULL AUTO_INCREMENT,
   secret TEXT(120),
   user INT,
   PRIMARY KEY (secret_id),
