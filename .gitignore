@@ -1,3 +1,5 @@
-# was using some jetbrains stuff and 
+# was using some jetbrains stuff and
 # had to put an ignore at this level
 .idea/*
+.vscode/launch.json
+config
