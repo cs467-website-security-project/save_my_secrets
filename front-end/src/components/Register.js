@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
 const Register = () => {
   const classes = useStyles();
   const [registerSuccess, setregisterSuccess] = useState(false);
+  const [usernameInUse, setusernameInUse] = useState(false);
+  const [serverError, setserverError] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -45,14 +47,29 @@ const Register = () => {
       },
     };
 
-    axios.post(`${process.env.REACT_APP_BACKEND_SERVICE}/register`, payload, config).then((res) => {
-      if (res.status === 200) {
-        console.log('SUCCESS');
-        setregisterSuccess(true);
-      } else {
-        console.log('Issue with Register server');
-      }
-    });
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_SERVICE}/register`, payload, config)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('SUCCESS');
+          setregisterSuccess(true);
+          setusernameInUse(false);
+          setserverError(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 400) {
+          setusernameInUse(true);
+          setregisterSuccess(false);
+          setserverError(false);
+        } else {
+          console.log('server error');
+          setserverError(true);
+          setusernameInUse(false);
+          setregisterSuccess(false);
+        }
+      });
   };
 
   return (
@@ -91,6 +108,8 @@ const Register = () => {
       <br />
       <br />
       {registerSuccess && <div>You successfully registered! </div>}
+      {usernameInUse && <div>This username is already in use. </div>}
+      {serverError && <div>There was a server error, please try again. </div>}
     </Container>
   );
 };
