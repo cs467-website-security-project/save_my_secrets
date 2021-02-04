@@ -1,0 +1,98 @@
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import axios from 'axios';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  buttons: {
+    // display: 'block',//TODO: center buttons?
+  },
+}));
+
+const Register = () => {
+  const classes = useStyles();
+  const [registerSuccess, setregisterSuccess] = useState(false);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const { username, password } = e.target.elements;
+    console.log({ username: username.value, password: password.value });
+    const payload = {
+      username: username.value,
+      password: password.value,
+    };
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVICE}/register`, payload, config).then((res) => {
+      if (res.status === 200) {
+        console.log('SUCCESS');
+        setregisterSuccess(true);
+      } else {
+        console.log('Issue with Register server');
+      }
+    });
+  };
+
+  return (
+    <Container component="main" maxWidth="xs" className={classes.buttons}>
+      <div className={classes.paper}>
+        <div>Register as a new user!</div>
+        <form className={classes.form} noValidate onSubmit={handleRegister}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
+            <Button type="submit" variant="outlined" color="primary">
+              Register
+            </Button>
+          </ButtonGroup>
+        </form>
+      </div>
+      <br />
+      <br />
+      {registerSuccess && <div>You successfully registered! </div>}
+    </Container>
+  );
+};
+
+export default Register;
