@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import PropTypes from 'prop-types';
 import axios from 'axios';
-import SetSecurityLevel from './SetSecurityLevel';
-import Register from './Register';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,44 +26,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = (props) => {
+const Register = () => {
   const classes = useStyles();
-  const [showRegisterForm, setshowRegisterForm] = useState(false);
+  const [registerSuccess, setregisterSuccess] = useState(false);
+  const [usernameInUse, setusernameInUse] = useState(false);
+  const [serverError, setserverError] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     const { username, password } = e.target.elements;
     console.log({ username: username.value, password: password.value });
-
-    const loginCreds = new URLSearchParams();
-    loginCreds.append('username', username.value);
-    loginCreds.append('password', password.value);
+    const payload = {
+      username: username.value,
+      password: password.value,
+    };
 
     const config = {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
     };
 
-    axios.post(`${process.env.REACT_APP_BACKEND_SERVICE}/login`, loginCreds, config).then((res) => {
-      if (res.status === 200) {
-        console.log('SUCCESS');
-        props.onAuthChange(true);
-      } else if (res.status === 401) {
-        console.log('Invalid credentials');
-        props.signInAttempt(true);
-      } else {
-        console.log('Issue with Authentication server');
-      }
-    });
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_SERVICE}/register`, payload, config)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('SUCCESS');
+          setregisterSuccess(true);
+          setusernameInUse(false);
+          setserverError(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 400) {
+          setusernameInUse(true);
+          setregisterSuccess(false);
+          setserverError(false);
+        } else {
+          console.log('server error');
+          setserverError(true);
+          setusernameInUse(false);
+          setregisterSuccess(false);
+        }
+      });
   };
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <div className={classes.paper}>
-        <SetSecurityLevel />
-        <InfoOutlinedIcon color="primary" fontSize="large" />
-        <form className={classes.form} noValidate onSubmit={handleLogin}>
+        <div>Register as a new user!</div>
+        <form className={classes.form} noValidate onSubmit={handleRegister}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -92,37 +99,19 @@ const SignIn = (props) => {
             autoComplete="current-password"
           />
           <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
-            <Button type="submit" variant="contained" color="primary">
-              Sign In
-            </Button>
-            <Button
-              type="button"
-              variant="outlined"
-              color="primary"
-              onClick={() => setshowRegisterForm(true)}
-            >
+            <Button type="submit" variant="outlined" color="primary">
               Register
             </Button>
           </ButtonGroup>
-          <Grid container>
-            <Grid item xs>
-              <Link href="/" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <br />
       <br />
-      {showRegisterForm && <Register />}
+      {registerSuccess && <div>You successfully registered! </div>}
+      {usernameInUse && <div>This username is already in use. </div>}
+      {serverError && <div>There was a server error, please try again. </div>}
     </Container>
   );
 };
 
-SignIn.propTypes = {
-  onAuthChange: PropTypes.func.isRequired,
-  signInAttempt: PropTypes.func.isRequired,
-};
-
-export default SignIn;
+export default Register;
