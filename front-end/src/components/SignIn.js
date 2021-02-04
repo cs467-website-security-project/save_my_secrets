@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -10,6 +10,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import SetSecurityLevel from './SetSecurityLevel';
+import Register from './Register';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = (props) => {
   const classes = useStyles();
+  const [showRegisterForm, setshowRegisterForm] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -93,7 +95,12 @@ const SignIn = (props) => {
             <Button type="submit" variant="contained" color="primary">
               Sign In
             </Button>
-            <Button type="submit" variant="outlined" color="primary">
+            <Button
+              type="button"
+              variant="outlined"
+              color="primary"
+              onClick={() => setshowRegisterForm(true)}
+            >
               Register
             </Button>
           </ButtonGroup>
@@ -108,6 +115,7 @@ const SignIn = (props) => {
       </div>
       <br />
       <br />
+      {showRegisterForm && <Register />}
     </Container>
   );
 };
