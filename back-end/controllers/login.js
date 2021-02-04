@@ -25,9 +25,9 @@ router.post("/login", async function (req, res, next) {
 });
 
 // Register new user
-router.post("/", async function (req, res, next) {
+router.post("/register", async function (req, res, next) {
   try {
-    const { username } = req.body;
+    const { username, password } = req.body;
 
     // check db
     const queryForExisting = `SELECT id FROM Users WHERE username = ${username}`;
@@ -37,7 +37,6 @@ router.post("/", async function (req, res, next) {
       return res.status(400).send("This username is already registered.");
     }
 
-    const { password } = req.body;
     const queryToRegister = `INSERT INTO Users (${username}, ${password})`;
     const resultsOfRegister = await queryDB(queryToRegister);
     // will be undef. if there's an error
