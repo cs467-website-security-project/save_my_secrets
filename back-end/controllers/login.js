@@ -30,14 +30,14 @@ router.post("/register", async function (req, res, next) {
     const { username, password } = req.body;
 
     // check db
-    const queryForExisting = `SELECT id FROM Users WHERE username = ${username}`;
+    const queryForExisting = `SELECT user_id FROM Users WHERE username = '${username}'`;
     const existingUser = await queryDB(queryForExisting);
 
-    if (existingUser) {
+    if (existingUser.length > 0) {
       return res.status(400).send("This username is already registered.");
     }
 
-    const queryToRegister = `INSERT INTO Users (${username}, ${password})`;
+    const queryToRegister = `INSERT INTO Users (username, password) VALUES ('${username}', '${password}')`;
     const resultsOfRegister = await queryDB(queryToRegister);
     // will be undef. if there's an error
     if (!resultsOfRegister) {
