@@ -37,7 +37,6 @@ const SignIn = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     const { username, password } = e.target.elements;
-    console.log({ username: username.value, password: password.value });
 
     const loginCreds = new URLSearchParams();
     loginCreds.append('username', username.value);
@@ -49,17 +48,24 @@ const SignIn = (props) => {
       },
     };
 
-    axios.post(`${process.env.REACT_APP_BACKEND_SERVICE}/login`, loginCreds, config).then((res) => {
-      if (res.status === 200) {
-        console.log('SUCCESS');
-        props.onAuthChange(true);
-      } else if (res.status === 401) {
-        console.log('Invalid credentials');
-        props.signInAttempt(true);
-      } else {
-        console.log('Issue with Authentication server');
-      }
-    });
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_SERVICE}/login`, loginCreds, config)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('Login SUCCESS');
+          props.onAuthChange(true);
+          props.setUserId(res.data);
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          console.log('Invalid credentials');
+          props.signInAttempt(true);
+        } else {
+          console.log('Issue with Authentication server');
+          props.signInAttempt(true);
+        }
+      });
   };
 
   return (
@@ -115,6 +121,7 @@ const SignIn = (props) => {
 SignIn.propTypes = {
   onAuthChange: PropTypes.func.isRequired,
   signInAttempt: PropTypes.func.isRequired,
+  setUserId: PropTypes.func.isRequired,
 };
 
 export default SignIn;
