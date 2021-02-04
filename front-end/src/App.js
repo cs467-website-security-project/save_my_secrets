@@ -6,12 +6,12 @@ import NavBar from './components/NavBar';
 import About from './components/About';
 import SignIn from './components/SignIn';
 import User from './components/User';
-import Admin from './components/Admin';
 import GuardedRoute from './GuardedRoute';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [signInAttempt, setSignInAttempt] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   return (
     <Container maxWidth="sm">
@@ -25,16 +25,17 @@ const App = () => {
                 {...props}
                 onAuthChange={setIsAuthenticated}
                 signInAttempt={setSignInAttempt}
+                setUserId={setUserId}
               />
             )}
           />
           <Route path="/about" component={About} />
-          <Route path="/user" component={User} />
           <GuardedRoute
-            path="/admin"
-            component={Admin}
+            path="/user"
+            component={User}
             auth={isAuthenticated}
             signInAttempt={signInAttempt}
+            userId={userId}
           />
         </Box>
       </HashRouter>

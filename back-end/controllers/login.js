@@ -10,7 +10,7 @@ router.post("/login", async function (req, res, next) {
     const query = `SELECT password, user_id FROM Users WHERE username = '${username}'`;
     const results = await queryDB(query);
 
-    if (!results) {
+    if (results.length <= 0) {
       return res.status(401).send("Not found.");
     }
 

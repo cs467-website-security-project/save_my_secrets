@@ -33,11 +33,6 @@ export default function NavBar() {
               About
             </NavLink>
           </Button>
-          <Button>
-            <NavLink to="/User" className={classes.link}>
-              User
-            </NavLink>
-          </Button>
         </Toolbar>
       </AppBar>
     </div>
