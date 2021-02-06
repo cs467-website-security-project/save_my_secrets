@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = (props) => {
   const classes = useStyles();
   const [showRegisterForm, setshowRegisterForm] = useState(false);
+  const [showSignInForm, setshowSignInForm] = useState(true);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -57,6 +58,8 @@ const SignIn = (props) => {
           console.log('Login SUCCESS');
           props.onAuthChange(true);
           props.setUserId(res.data);
+          setshowSignInForm(false);
+          setshowRegisterForm(false);
         }
       })
       .catch((err) => {
@@ -72,55 +75,59 @@ const SignIn = (props) => {
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
-      <div className={classes.paper}>
-        <SetSecurityLevel />
-        <InfoOutlinedIcon color="primary" fontSize="large" />
-        <form className={classes.form} noValidate onSubmit={handleLogin}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
-            <Button type="submit" variant="contained" color="primary">
-              Sign In
-            </Button>
-            <Button
-              type="button"
-              variant="outlined"
-              color="primary"
-              onClick={() => setshowRegisterForm(true)}
-            >
-              Register
-            </Button>
-          </ButtonGroup>
-          <Grid container>
-            <Grid item xs>
-              <Link href="/" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <br />
-      <br />
+      {showSignInForm && (
+        <>
+          <div className={classes.paper}>
+            <SetSecurityLevel />
+            <InfoOutlinedIcon color="primary" fontSize="large" />
+            <form className={classes.form} noValidate onSubmit={handleLogin}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
+                <Button type="submit" variant="contained" color="primary">
+                  Sign In
+                </Button>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => setshowRegisterForm(true)}
+                >
+                  Register
+                </Button>
+              </ButtonGroup>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="/" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+          <br />
+          <br />
+        </>
+      )}
       {showRegisterForm && <Register />}
     </Container>
   );
