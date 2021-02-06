@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -28,35 +30,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const rows = [
-  { secret: 'sample secret 1', dateAdded: '1/19/21' },
-  { secret: 'sample secret 2', dateAdded: '6/7/20' },
-];
-
-export default function User() {
+const User = ({ userId }) => {
   const classes = useStyles();
+  const [secrets, getSecrets] = useState([]);
+  const [userName, getUserName] = useState(null);
+
+  const getAllSecrets = () => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_SERVICE}/user/${userId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          // const allSecrets = res.data;
+          getSecrets(res.data);
+          getUserName(res.data[0].username);
+        }
+      })
+      .catch((err) => {
+        console.log(`User.js ERROR: ${err}`);
+      });
+  };
+
+  useEffect(() => {
+    getAllSecrets();
+  }, []);
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
-      <Box>
-        <Typography variant="h5">Hello user! Here are your secrets.</Typography>
+      <Box mb={3}>
+        <Typography variant="h5">
+          Here are your secrets&nbsp;
+          {userName}
+        </Typography>
       </Box>
       <AddSecretsModal />
       <TableContainer>
         <Table aria-label="secrets table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Secret</TableCell>
-              <TableCell align="right">Date Added</TableCell>
-            </TableRow>
-          </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {secrets.map((row) => (
               <TableRow key={row.secret}>
                 <TableCell component="th" scope="row">
                   {row.secret}
                 </TableCell>
-                <TableCell align="right">{row.dateAdded}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -64,4 +78,11 @@ export default function User() {
       </TableContainer>
     </Container>
   );
-}
+};
+
+User.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  userId: PropTypes.number,
+};
+
+export default User;

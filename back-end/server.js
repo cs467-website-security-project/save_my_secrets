@@ -2,7 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const port = 4000;
-const routes = require("./controllers/login");
+const loginRoutes = require("./controllers/login");
+const userRoutes = require("./controllers/user");
+
 const cors = require("cors");
 
 app.use(cors());
@@ -12,7 +14,8 @@ app.use(
     extended: true,
   })
 );
-app.use("/", routes);
+app.use("/", loginRoutes);
+app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

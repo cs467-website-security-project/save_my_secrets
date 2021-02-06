@@ -19,6 +19,7 @@ const App = () => {
         <NavBar />
         <Box my={4}>
           <Route
+            exact
             path="/"
             render={(props) => (
               <SignIn

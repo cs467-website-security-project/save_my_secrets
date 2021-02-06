@@ -12,7 +12,7 @@ const GuardedRoute = ({ component: Component, auth, signInAttempt, userId }) => 
           return <Admin />;
         }
         if (auth === true && userId > 1) {
-          return <Component {...props} />;
+          return <Component {...props} userId={userId} />;
         }
         return <SigninFail auth={auth} signInAttempt={signInAttempt} />;
       }
