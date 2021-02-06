@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
 
 function getModalStyle() {
   return {
@@ -22,11 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddSecretsModal() {
+const AddSecretsModal = ({ userId, secretUpdate, secretUpdateCount }) => {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [secret, setSecret] = React.useState('');
 
   const handleOpen = () => {
     setOpen(true);
@@ -38,6 +41,37 @@ export default function AddSecretsModal() {
 
   const handleAdd = () => {
     setOpen(false);
+    console.log(userId);
+    console.log(secret);
+
+    const newSecret = new URLSearchParams();
+    newSecret.append('secret', secret);
+    newSecret.append('userId', userId);
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_SERVICE}/user/secret`, newSecret, config)
+      .then((res) => {
+        if (res.status === 200) {
+          secretUpdate(secretUpdateCount + 1);
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          console.log(`Issue with saving secret for user_id:${userId}`);
+        } else {
+          console.log('505: There is an issues with the server');
+        }
+      });
+  };
+
+  const handleTextChange = (e) => {
+    setSecret(e.target.value);
   };
 
   const body = (
@@ -51,6 +85,7 @@ export default function AddSecretsModal() {
         defaultValue="My secret is..."
         variant="outlined"
         inputProps={{ maxLength: 120 }}
+        onChange={handleTextChange}
       />
       <button type="button" onClick={handleAdd}>
         Add the secret
@@ -73,4 +108,13 @@ export default function AddSecretsModal() {
       </Modal>
     </div>
   );
-}
+};
+
+AddSecretsModal.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  userId: PropTypes.number,
+  secretUpdate: PropTypes.func.isRequired,
+  secretUpdateCount: PropTypes.number.isRequired,
+};
+
+export default AddSecretsModal;

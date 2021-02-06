@@ -34,6 +34,7 @@ const User = ({ userId }) => {
   const classes = useStyles();
   const [secrets, getSecrets] = useState([]);
   const [userName, getUserName] = useState(null);
+  const [secretUpdate, getSecretUpdate] = useState(0);
 
   const getAllSecrets = () => {
     axios
@@ -52,7 +53,7 @@ const User = ({ userId }) => {
 
   useEffect(() => {
     getAllSecrets();
-  }, []);
+  }, [secretUpdate]);
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
@@ -62,7 +63,11 @@ const User = ({ userId }) => {
           {userName}
         </Typography>
       </Box>
-      <AddSecretsModal />
+      <AddSecretsModal
+        userId={userId}
+        secretUpdate={getSecretUpdate}
+        secretUpdateCount={secretUpdate}
+      />
       <TableContainer>
         <Table aria-label="secrets table">
           <TableBody>
