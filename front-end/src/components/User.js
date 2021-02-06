@@ -33,14 +33,16 @@ const useStyles = makeStyles((theme) => ({
 const User = ({ userId }) => {
   const classes = useStyles();
   const [secrets, getSecrets] = useState([]);
+  const [userName, getUserName] = useState(null);
 
   const getAllSecrets = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_SERVICE}/user/${userId}`)
       .then((res) => {
         if (res.status === 200) {
-          const allSecrets = res.data;
-          getSecrets(allSecrets);
+          // const allSecrets = res.data;
+          getSecrets(res.data);
+          getUserName(res.data[0].username);
         }
       })
       .catch((err) => {
@@ -55,7 +57,10 @@ const User = ({ userId }) => {
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <Box mb={3}>
-        <Typography variant="h5">Hello user! Here are your secrets.</Typography>
+        <Typography variant="h5">
+          Here are your secrets&nbsp;
+          {userName}
+        </Typography>
       </Box>
       <AddSecretsModal />
       <TableContainer>
