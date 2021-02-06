@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import Box from '@material-ui/core/Box';
-// import Table from '@material-ui/core/Table';
-// import TableContainer from '@material-ui/core/TableContainer';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
+import Table from '@material-ui/core/Table';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -33,33 +32,45 @@ const useStyles = makeStyles((theme) => ({
 
 const User = ({ userId }) => {
   const classes = useStyles();
-  // const [rows, setRows] = useState([]);
-  let rows;
+  const [secrets, getSecrets] = useState([]);
 
-  axios
-    .get(`${process.env.REACT_APP_BACKEND_SERVICE}/user/${userId}`)
-    .then((res) => {
-      if (res.status === 200) {
-        console.log('SUCCESS');
-        rows = res.data;
-        console.log(rows);
-      }
-    })
-    .catch((err) => {
-      if (err.response.status === 401) {
-        console.log('Invalid credentials');
-      } else {
-        console.log(`Uncaught error: '${err}'`);
-      }
-    });
+  const getAllSecrets = () => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_SERVICE}/user/${userId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          const allSecrets = res.data;
+          getSecrets(allSecrets);
+        }
+      })
+      .catch((err) => {
+        console.log(`User.js ERROR: ${err}`);
+      });
+  };
+
+  useEffect(() => {
+    getAllSecrets();
+  }, []);
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
-      <Box>
+      <Box mb={3}>
         <Typography variant="h5">Hello user! Here are your secrets.</Typography>
       </Box>
       <AddSecretsModal />
-      <Typography>{rows[0]}</Typography>
+      <TableContainer>
+        <Table aria-label="secrets table">
+          <TableBody>
+            {secrets.map((row) => (
+              <TableRow key={row.secret}>
+                <TableCell component="th" scope="row">
+                  {row.secret}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   );
 };
