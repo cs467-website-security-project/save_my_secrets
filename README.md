@@ -2,7 +2,7 @@
 
 
 ## Instructions to run this app locally
-(Note: you must have `node` and `mariadb` on your system to run this project locally. The following instructions are for a `unix` based system.)
+(Note: you must have `node v.14.15.4+` and `mariadb v10.3.27+` on your system to run this project locally. The following instructions are for a `unix` based system.)
 
 
 ## Front end instructions
