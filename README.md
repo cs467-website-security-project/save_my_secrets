@@ -1,5 +1,9 @@
 # Welcome to Save My Secrets
+Save My Secrets is a single page application made with React and Node/Express to research the vulnerabilites around websites and around password safety. We will be incrementally securing the Save My Secrets web application with each release by performing a penetration test and creating a write-up for that specific version. We intend to use the tools in Kali linux and prevalent tools to gain and exploit passwords. Feel free to checkout our current live sites and play around in those environments. Happy Hacking!
 
+## Production Deployments (live sites)
+* [v1.0](http://35.224.40.226:5000/#/)
+* [v1.1](http://35.192.183.39:5000/#/)
 
 ## Instructions to run this app locally
 (Note: you must have `node v.14.15.4+` and `mariadb v10.3.27+` on your system to run this project locally. The following instructions are for a `unix` based system.)
@@ -36,3 +40,6 @@
 }
 ```
 * Here, `<portNumber>` should be the port that your local database server is on. You can double check this by querying `SHOW GLOBAL VARIABLES LIKE 'PORT';` in the MariaDB CLI. 
+
+## Penetration Test Reports
+* [v1.0](https://docs.google.com/document/d/1bHbGZlmDtVqcUrWsEjpkIG4kdxffRHM9C4MsS01IdAw/edit?usp=sharing)
