@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CryptoJS from 'crypto-js';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -40,10 +42,11 @@ const SignIn = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     const { username, password } = e.target.elements;
+    const md5Psw = CryptoJS.MD5(password.value).toString(CryptoJS.enc.Hex);
 
     const loginCreds = new URLSearchParams();
     loginCreds.append('username', username.value);
-    loginCreds.append('password', password.value);
+    loginCreds.append('password', md5Psw);
 
     const config = {
       headers: {

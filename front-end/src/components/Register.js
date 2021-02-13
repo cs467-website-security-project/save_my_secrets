@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CryptoJS from 'crypto-js';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,10 +37,10 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     const { username, password } = e.target.elements;
-    console.log({ username: username.value, password: password.value });
+    const md5Psw = CryptoJS.MD5(password.value).toString(CryptoJS.enc.Hex);
     const payload = {
       username: username.value,
-      password: password.value,
+      password: md5Psw,
     };
 
     const config = {
