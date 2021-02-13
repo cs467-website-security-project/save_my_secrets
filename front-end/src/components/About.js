@@ -27,16 +27,17 @@ export default function About() {
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <Box my={4}>
         <Typography variant="h6" component="h5" gutterBottom>
-          Welcome to save my secrets 1.1!
+          Welcome to save my secrets 1.2!
           <br />
-          We are now connected to the backend and we can do the following:
+          As mentioned before we are now connected to the backend and we can do the following:
           <br />
           <ul>
             <li>Register new accounts</li>
             <li>Login using legitimate accounts</li>
             <li>Display secrets and create new secrets</li>
           </ul>
-          Hope you enjoy the updated website and Happy hacking!
+          With v1.2d we decided to make your passwords safer by hashing it. Hope you enjoy the
+          updated website and Happy hacking!
         </Typography>
       </Box>
     </Container>
