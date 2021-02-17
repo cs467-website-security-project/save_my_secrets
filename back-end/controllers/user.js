@@ -7,7 +7,7 @@ router.get("/user/:userId", async function (req, res, next) {
   try {
     const userId = req.params["userId"];
 
-    const query = `SELECT username, secret
+    const query = `SELECT secret
       FROM Users u INNER JOIN Secrets s
       ON u.user_id = s.user
       WHERE u.user_id = ${userId}`;
