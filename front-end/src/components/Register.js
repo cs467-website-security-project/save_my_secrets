@@ -37,10 +37,10 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     const { username, password } = e.target.elements;
-    const md5Psw = CryptoJS.MD5(password.value).toString(CryptoJS.enc.Hex);
+    const hashedPwd = CryptoJS.SHA512(password.value).toString(CryptoJS.enc.Hex);
     const payload = {
       username: username.value,
-      password: md5Psw,
+      password: hashedPwd,
     };
 
     const config = {

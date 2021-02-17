@@ -42,11 +42,11 @@ const SignIn = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     const { username, password } = e.target.elements;
-    const md5Psw = CryptoJS.MD5(password.value).toString(CryptoJS.enc.Hex);
+    const hashedPwd = CryptoJS.SHA512(password.value).toString(CryptoJS.enc.Hex);
 
     const loginCreds = new URLSearchParams();
     loginCreds.append('username', username.value);
-    loginCreds.append('password', md5Psw);
+    loginCreds.append('password', hashedPwd);
 
     const config = {
       headers: {
