@@ -41,8 +41,6 @@ const AddSecretsModal = ({ userId, secretUpdate, secretUpdateCount }) => {
 
   const handleAdd = () => {
     setOpen(false);
-    console.log(userId);
-    console.log(secret);
 
     const newSecret = new URLSearchParams();
     newSecret.append('secret', secret);
