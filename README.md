@@ -6,6 +6,7 @@ Save My Secrets is a single page application made with React and Node/Express to
 
 - [v1.0](http://35.224.40.226:5000/#/)
 - [v1.1](http://35.192.183.39:5000/#/)
+- [v1.2](http://35.226.176.34:5000/#/)
 
 ## Instructions to run this app locally
 
