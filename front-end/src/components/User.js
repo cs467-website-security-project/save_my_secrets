@@ -30,10 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const User = ({ userId }) => {
+const User = ({ username }, { userId }) => {
   const classes = useStyles();
   const [secrets, setSecrets] = useState([]);
-  const [userName, setUserName] = useState(null);
   const [secretUpdate, setSecretUpdate] = useState(0);
 
   const getAllSecrets = () => {
@@ -43,7 +42,6 @@ const User = ({ userId }) => {
         if (res.status === 200) {
           // const allSecrets = res.data;
           setSecrets(res.data);
-          setUserName(res.data[0].username);
         }
       })
       .catch((err) => {
@@ -60,7 +58,7 @@ const User = ({ userId }) => {
       <Box mb={3}>
         <Typography variant="h5">
           Here are your secrets&nbsp;
-          {userName}
+          {username}
         </Typography>
       </Box>
       <AddSecretsModal
@@ -86,8 +84,10 @@ const User = ({ userId }) => {
 };
 
 User.propTypes = {
-  // eslint-disable-next-line react/require-default-props
+  // eslint-disable-next-line react/require-default-props,react/no-unused-prop-types
   userId: PropTypes.number,
+  // eslint-disable-next-line react/require-default-props
+  username: PropTypes.string,
 };
 
 export default User;

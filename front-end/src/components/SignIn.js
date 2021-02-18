@@ -29,15 +29,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  buttons: {
-    // display: 'block',//TODO: center buttons?
-  },
 }));
 
 const SignIn = (props) => {
   const classes = useStyles();
-  const [showRegisterForm, setshowRegisterForm] = useState(false);
-  const [showSignInForm, setshowSignInForm] = useState(true);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [showSignInForm, setShowSignInForm] = useState(true);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -61,8 +58,9 @@ const SignIn = (props) => {
           console.log('Login SUCCESS');
           props.onAuthChange(true);
           props.setUserId(res.data);
-          setshowSignInForm(false);
-          setshowRegisterForm(false);
+          props.setUsername(username);
+          setShowSignInForm(false);
+          setShowRegisterForm(false);
         }
       })
       .catch((err) => {
@@ -113,7 +111,7 @@ const SignIn = (props) => {
                   type="button"
                   variant="outlined"
                   color="primary"
-                  onClick={() => setshowRegisterForm(true)}
+                  onClick={() => setShowRegisterForm(true)}
                 >
                   Register
                 </Button>
@@ -140,6 +138,7 @@ SignIn.propTypes = {
   onAuthChange: PropTypes.func.isRequired,
   signInAttempt: PropTypes.func.isRequired,
   setUserId: PropTypes.func.isRequired,
+  setUsername: PropTypes.func.isRequired,
 };
 
 export default SignIn;
