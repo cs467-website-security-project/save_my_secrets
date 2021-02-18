@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SigninFail from './components/SigninFail';
 import Admin from './components/Admin';
 
-const GuardedRoute = ({ component: Component, auth, signInAttempt, userId }) => (
+const GuardedRoute = ({ component: Component, auth, signInAttempt, userId, username }) => (
   <Route
     render={
       (props) => {
@@ -12,7 +12,7 @@ const GuardedRoute = ({ component: Component, auth, signInAttempt, userId }) => 
           return <Admin />;
         }
         if (auth === true && userId > 1) {
-          return <Component {...props} userId={userId} />;
+          return <Component {...props} userId={userId} username={username} />;
         }
         return <SigninFail auth={auth} signInAttempt={signInAttempt} />;
       }
@@ -27,6 +27,8 @@ GuardedRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
   // eslint-disable-next-line react/require-default-props
   userId: PropTypes.number,
+  // eslint-disable-next-line react/require-default-props
+  username: PropTypes.string,
 };
 
 export default GuardedRoute;
