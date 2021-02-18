@@ -12,6 +12,7 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [signInAttempt, setSignInAttempt] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState(null);
 
   return (
     <Container maxWidth="sm">
@@ -27,6 +28,7 @@ const App = () => {
                 onAuthChange={setIsAuthenticated}
                 signInAttempt={setSignInAttempt}
                 setUserId={setUserId}
+                setUsername={setUsername}
               />
             )}
           />
@@ -37,6 +39,7 @@ const App = () => {
             auth={isAuthenticated}
             signInAttempt={signInAttempt}
             userId={userId}
+            username={username}
           />
         </Box>
       </HashRouter>

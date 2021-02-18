@@ -30,11 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const User = ({ userId }) => {
+const User = ({ username }, { userId }) => {
   const classes = useStyles();
-  const [secrets, getSecrets] = useState([]);
-  const [userName, getUserName] = useState(null);
-  const [secretUpdate, getSecretUpdate] = useState(0);
+  const [secrets, setSecrets] = useState([]);
+  const [secretUpdate, setSecretUpdate] = useState(0);
 
   const getAllSecrets = () => {
     axios
@@ -42,8 +41,7 @@ const User = ({ userId }) => {
       .then((res) => {
         if (res.status === 200) {
           // const allSecrets = res.data;
-          getSecrets(res.data);
-          getUserName(res.data[0].username);
+          setSecrets(res.data);
         }
       })
       .catch((err) => {
@@ -60,12 +58,12 @@ const User = ({ userId }) => {
       <Box mb={3}>
         <Typography variant="h5">
           Here are your secrets&nbsp;
-          {userName}
+          {username}
         </Typography>
       </Box>
       <AddSecretsModal
         userId={userId}
-        secretUpdate={getSecretUpdate}
+        secretUpdate={setSecretUpdate}
         secretUpdateCount={secretUpdate}
       />
       <TableContainer>
@@ -86,8 +84,10 @@ const User = ({ userId }) => {
 };
 
 User.propTypes = {
-  // eslint-disable-next-line react/require-default-props
+  // eslint-disable-next-line react/require-default-props,react/no-unused-prop-types
   userId: PropTypes.number,
+  // eslint-disable-next-line react/require-default-props
+  username: PropTypes.string,
 };
 
 export default User;
