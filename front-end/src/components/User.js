@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 const User = ({ userId }) => {
   const classes = useStyles();
-  const [secrets, getSecrets] = useState([]);
-  const [userName, getUserName] = useState(null);
-  const [secretUpdate, getSecretUpdate] = useState(0);
+  const [secrets, setSecrets] = useState([]);
+  const [userName, setUserName] = useState(null);
+  const [secretUpdate, setSecretUpdate] = useState(0);
 
   const getAllSecrets = () => {
     axios
@@ -42,8 +42,8 @@ const User = ({ userId }) => {
       .then((res) => {
         if (res.status === 200) {
           // const allSecrets = res.data;
-          getSecrets(res.data);
-          getUserName(res.data[0].username);
+          setSecrets(res.data);
+          setUserName(res.data[0].username);
         }
       })
       .catch((err) => {
@@ -65,7 +65,7 @@ const User = ({ userId }) => {
       </Box>
       <AddSecretsModal
         userId={userId}
-        secretUpdate={getSecretUpdate}
+        secretUpdate={setSecretUpdate}
         secretUpdateCount={secretUpdate}
       />
       <TableContainer>
