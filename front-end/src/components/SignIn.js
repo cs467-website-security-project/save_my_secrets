@@ -58,7 +58,7 @@ const SignIn = (props) => {
           console.log('Login SUCCESS');
           props.onAuthChange(true);
           props.setUserId(res.data);
-          props.setUsername(username.value);
+          props.setUsername(username);
           setShowSignInForm(false);
           setShowRegisterForm(false);
         }
