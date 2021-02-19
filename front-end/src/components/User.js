@@ -30,10 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const User = ({ username }, { userId }) => {
+const User = (props) => {
   const classes = useStyles();
   const [secrets, setSecrets] = useState([]);
   const [secretUpdate, setSecretUpdate] = useState(0);
+  const { userId, username } = props;
 
   const getAllSecrets = () => {
     axios
@@ -84,7 +85,7 @@ const User = ({ username }, { userId }) => {
 };
 
 User.propTypes = {
-  // eslint-disable-next-line react/require-default-props,react/no-unused-prop-types
+  // eslint-disable-next-line react/require-default-props
   userId: PropTypes.number,
   // eslint-disable-next-line react/require-default-props
   username: PropTypes.string,
