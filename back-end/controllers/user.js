@@ -25,6 +25,8 @@ router.get("/user/:userId", async function (req, res, next) {
   }
 });
 
+router.delete("/user/:userId", async function (req, res, next) {});
+
 router.post("/user/secret", async function (req, res) {
   try {
     const { secret, userId } = req.body;

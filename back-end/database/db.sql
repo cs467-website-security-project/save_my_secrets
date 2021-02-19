@@ -3,6 +3,7 @@ CREATE TABLE Users (
   user_id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
+  date_added DATETIME DEFAULT NOW(),
   PRIMARY KEY (user_id)
 );
 

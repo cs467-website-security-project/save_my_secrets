@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -9,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Delete from '@material-ui/icons/DeleteRounded';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,13 +29,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const rows = [
-  { user: 'anonymous', dateAdded: '1/19/21' },
-  { user: 'elliotalderson', dateAdded: '6/7/20' },
-];
-
 const Admin = () => {
   const classes = useStyles();
+  const [users, getUsers] = useState([]);
+
+  const getUserData = () => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_SERVICE}/admin/get-users`)
+      .then((res) => {
+        if (res.status === 200) {
+          const responseData = res.data;
+          getUsers([...responseData]);
+          console.log(responseData);
+        }
+      })
+      .catch((err) => {
+        console.log(`User.js ERROR: ${err}`);
+      });
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
@@ -49,12 +66,13 @@ const Admin = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.user}>
+            {users.map((user, idx) => (
+              <TableRow key={user}>
                 <TableCell component="th" scope="row">
-                  {row.user}
+                  {user.username}
                 </TableCell>
-                <TableCell align="right">{row.dateAdded}</TableCell>
+                <TableCell align="right">{user.date_added}</TableCell>
+                <Delete id={idx} />
               </TableRow>
             ))}
           </TableBody>
