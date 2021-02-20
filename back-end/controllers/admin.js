@@ -4,13 +4,14 @@ const { queryDB } = require("../helpers/db-helpers");
 
 router.get("/admin/get-users", async function (req, res, next) {
   try {
-    const query = `SELECT username, date_added FROM Users`;
+    const query = `SELECT username, date_added, user_id FROM Users WHERE user_id != 1`;
     const results = await queryDB(query);
 
-    if (userArray.length <= 0) {
-      return res.status(401).send("No users found");
+    if (results.length === 0) {
+      return res.status(204).send("No users found");
+    } else if (results.length >= 0) {
+      return res.status(200).send(results);
     }
-    return res.status(200).send(results);
   } catch (err) {
     res.status(500).send(err);
   }

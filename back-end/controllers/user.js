@@ -25,7 +25,22 @@ router.get("/user/:userId", async function (req, res, next) {
   }
 });
 
-router.delete("/user/:userId", async function (req, res, next) {});
+router.delete("/user/:userId", async function (req, res, next) {
+  try {
+    const { userId } = req.params;
+
+    const query = `DELETE FROM Users WHERE Users.user_id = ${userId}`;
+
+    const results = await queryDB(query);
+
+    if (results.affectedRows === 1) {
+      return res.status(200).send("SUCCESS");
+    }
+  } catch (err) {
+    console.log("user.js API ERROR:", err);
+    res.status(500).send(err);
+  }
+});
 
 router.post("/user/secret", async function (req, res) {
   try {

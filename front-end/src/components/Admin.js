@@ -10,7 +10,9 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/DeleteRounded';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Admin = () => {
   const classes = useStyles();
   const [users, getUsers] = useState([]);
+  const [userCount, setUserCount] = useState(0);
 
   const getUserData = () => {
     axios
@@ -39,8 +42,17 @@ const Admin = () => {
       .then((res) => {
         if (res.status === 200) {
           const responseData = res.data;
+          responseData.map((user) => {
+            // eslint-disable-next-line no-param-reassign
+            user.date_added = moment(user.date_added).format('MM/DD/YYYY');
+            return user;
+          });
           getUsers([...responseData]);
-          console.log(responseData);
+          setUserCount(responseData.length);
+        }
+        if (res.status === 204) {
+          console.log(`No users available`);
+          getUsers([]);
         }
       })
       .catch((err) => {
@@ -48,9 +60,22 @@ const Admin = () => {
       });
   };
 
+  const deleteUser = (userId) => {
+    axios
+      .delete(`${process.env.REACT_APP_BACKEND_SERVICE}/user/${userId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setUserCount(userCount - 1);
+        }
+      })
+      .catch((err) => {
+        console.log(`Error with User DELETE: ${err}`);
+      });
+  };
+
   useEffect(() => {
     getUserData();
-  }, []);
+  }, [userCount]);
 
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
@@ -67,12 +92,17 @@ const Admin = () => {
           </TableHead>
           <TableBody>
             {users.map((user, idx) => (
-              <TableRow key={user}>
+              // eslint-disable-next-line react/no-array-index-key
+              <TableRow key={`${user}_${idx}`}>
                 <TableCell component="th" scope="row">
                   {user.username}
                 </TableCell>
                 <TableCell align="right">{user.date_added}</TableCell>
-                <Delete id={idx} />
+                <td>
+                  <IconButton onClick={() => deleteUser(user.user_id)}>
+                    <Delete />
+                  </IconButton>
+                </td>
               </TableRow>
             ))}
           </TableBody>
