@@ -8,6 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -54,6 +56,19 @@ const User = (props) => {
     getAllSecrets();
   }, [secretUpdate]);
 
+  const deleteSecret = (secretId) => {
+    axios
+      .delete(`${process.env.REACT_APP_BACKEND_SERVICE}/delete-secret/${secretId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          getAllSecrets(); // re-render the page
+        }
+      })
+      .catch((err) => {
+        console.log(`Error on delete: ${err}`);
+      });
+  };
+
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <Box mb={3}>
@@ -74,6 +89,11 @@ const User = (props) => {
               <TableRow key={row.secret}>
                 <TableCell component="th" scope="row">
                   {row.secret}
+                </TableCell>
+                <TableCell>
+                  <IconButton onClick={() => deleteSecret(row.secret_id)}>
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
