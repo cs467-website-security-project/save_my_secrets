@@ -12,12 +12,7 @@ router.get("/user/:userId", async function (req, res, next) {
       WHERE u.user_id = ${userId}`;
 
     const results = await queryDB(query);
-
-    if (results.length <= 0) {
-      return res.status(401).send("Not found.");
-    } else {
-      return res.status(200).send(results);
-    }
+    res.status(200).send(results);
   } catch (err) {
     console.log("user.js API ERROR:", err);
     res.status(500).send(err);

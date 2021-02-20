@@ -43,7 +43,6 @@ const User = (props) => {
       .get(`${process.env.REACT_APP_BACKEND_SERVICE}/user/${userId}`)
       .then((res) => {
         if (res.status === 200) {
-          // const allSecrets = res.data;
           setSecrets(res.data);
         }
       })
