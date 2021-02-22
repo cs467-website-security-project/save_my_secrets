@@ -60,7 +60,7 @@ const User = (props) => {
       .delete(`${process.env.REACT_APP_BACKEND_SERVICE}/delete-secret/${secretId}`)
       .then((res) => {
         if (res.status === 200) {
-          getAllSecrets(); // re-render the page
+          setSecretUpdate(secretUpdate - 1); // re-render the page
         }
       })
       .catch((err) => {
