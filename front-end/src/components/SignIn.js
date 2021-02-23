@@ -64,7 +64,9 @@ const SignIn = (props) => {
         }
       })
       .catch((err) => {
-        if (err.response.status === 401) {
+        if (!err.status) {
+          console.log('Network error.');
+        } else if (err.response.status === 401) {
           console.log('Invalid credentials');
           props.signInAttempt(true);
         } else {

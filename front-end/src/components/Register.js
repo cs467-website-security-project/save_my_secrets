@@ -61,7 +61,9 @@ const Register = () => {
       })
       .catch((error) => {
         console.log(error);
-        if (error.response.status === 400) {
+        if (!error.status) {
+          console.log('Network error.');
+        } else if (error.response.status === 400) {
           setusernameInUse(true);
           setregisterSuccess(false);
           setserverError(false);
