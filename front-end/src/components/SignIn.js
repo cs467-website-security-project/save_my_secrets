@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CryptoJS from 'crypto-js';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -39,11 +38,9 @@ const SignIn = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     const { username, password } = e.target.elements;
-    const hashedPwd = CryptoJS.SHA512(password.value).toString(CryptoJS.enc.Hex);
-
     const loginCreds = new URLSearchParams();
     loginCreds.append('username', username.value);
-    loginCreds.append('password', hashedPwd);
+    loginCreds.append('password', password.value);
 
     const config = {
       headers: {
@@ -64,9 +61,7 @@ const SignIn = (props) => {
         }
       })
       .catch((err) => {
-        if (!err.status) {
-          console.log('Network error.');
-        } else if (err.response.status === 401) {
+        if (err.response.status === 401) {
           console.log('Invalid credentials');
           props.signInAttempt(true);
         } else {
