@@ -27,7 +27,7 @@ export default function About() {
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <Box my={4}>
         <Typography variant="h6" component="h5" gutterBottom>
-          Welcome to save my secrets 1.3.1!
+          Welcome to save my secrets 1.3.2!
           <br />
           In this version we have implemented the following features
           <br />
