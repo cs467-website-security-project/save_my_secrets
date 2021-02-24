@@ -33,7 +33,7 @@ export default function About() {
           <br />
           <ul>
             <li>Better hashing algorithm for our password</li>
-            <li>Hidin mapped source code in developer tools</li>
+            <li>Hidden mapped source code in developer tools</li>
             <li>Refactored /user API call to make it more secure</li>
           </ul>
           Hope you enjoy the updated website and Happy hacking!
