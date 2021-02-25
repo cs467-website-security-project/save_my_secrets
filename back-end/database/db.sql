@@ -3,6 +3,7 @@ CREATE TABLE Users (
   user_id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
+  date_added DATETIME DEFAULT NOW(),
   salt VARCHAR(255),
   PRIMARY KEY (user_id)
 );
@@ -12,7 +13,7 @@ CREATE TABLE Secrets (
   secret TEXT(120),
   user INT,
   PRIMARY KEY (secret_id),
-  FOREIGN KEY (user) REFERENCES Users(user_id)
+  FOREIGN KEY (user) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
 INSERT INTO Users (username, password, salt)
@@ -38,4 +39,6 @@ VALUES
   ("I'm in love with a stripper", 5),
   ("Shrek is love shrek is life", 2),
   ("Got a new job!", 3),
-  ("I'm in love with a stripper 2", 4);
+  ("I'm in love with a stripper 2", 4),
+  ("I'm not the admin", 2),
+  ("Bob sucks", 4);

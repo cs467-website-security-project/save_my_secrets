@@ -4,6 +4,7 @@ const app = express();
 const port = 4000;
 const loginRoutes = require("./controllers/login");
 const userRoutes = require("./controllers/user");
+const adminRoutes = require("./controllers/admin");
 
 const cors = require("cors");
 
@@ -16,6 +17,7 @@ app.use(
 );
 app.use("/", loginRoutes);
 app.use("/", userRoutes);
+app.use("/", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

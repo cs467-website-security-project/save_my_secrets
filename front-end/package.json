@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -21,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "cleanBuild": "rimraf ./build/*",
-    "build-prod": "npm run cleanBuild && set \"GENERATE_SOURCEMAP=false\" && react-scripts build ",
+    "build-prod-lin": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build-prod-win": "npm run cleanBuild && set \"GENERATE_SOURCEMAP=false\" && react-scripts build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
