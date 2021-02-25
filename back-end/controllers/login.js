@@ -1,4 +1,5 @@
 const express = require("express");
+const CryptoJS = require("crypto-js");
 const router = express.Router();
 const { queryDB } = require("../helpers/db-helpers");
 
@@ -7,14 +8,17 @@ router.post("/login", async function (req, res, next) {
   try {
     const { username, password } = req.body;
 
-    const query = `SELECT password, user_id FROM Users WHERE username = '${username}'`;
+    const query = `SELECT password, salt, user_id FROM Users WHERE username = '${username}'`;
     const results = await queryDB(query);
 
     if (results.length <= 0) {
       return res.status(401).send("Not found.");
     }
 
-    if (results[0].password === password) {
+    const saltedPwd = `${password}${results[0].salt}`;
+    const hashedPwd = CryptoJS.SHA512(saltedPwd).toString(CryptoJS.enc.Hex);
+
+    if (results[0].password === hashedPwd) {
       return res.status(200).send(results[0].user_id.toString());
     } else {
       return res.status(403).send("Bad password");
@@ -27,7 +31,7 @@ router.post("/login", async function (req, res, next) {
 // Register new user
 router.post("/register", async function (req, res, next) {
   try {
-    const { username, password } = req.body;
+    const { username, password, salt } = req.body;
 
     // check db
     const queryForExisting = `SELECT user_id FROM Users WHERE username = '${username}'`;
@@ -37,7 +41,10 @@ router.post("/register", async function (req, res, next) {
       return res.status(400).send("This username is already registered.");
     }
 
-    const queryToRegister = `INSERT INTO Users (username, password) VALUES ('${username}', '${password}')`;
+    const saltedPwd = `${password}${salt}`;
+    const hashedPwd = CryptoJS.SHA512(saltedPwd).toString(CryptoJS.enc.Hex);
+
+    const queryToRegister = `INSERT INTO Users (username, password, salt) VALUES ('${username}', '${hashedPwd}', '${salt}')`;
     const resultsOfRegister = await queryDB(queryToRegister);
     // will be undef. if there's an error
     if (!resultsOfRegister) {
