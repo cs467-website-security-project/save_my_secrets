@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/DeleteRounded';
-import moment from 'moment';
+import Moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,7 +44,7 @@ const Admin = () => {
           const responseData = res.data;
           responseData.map((user) => {
             // eslint-disable-next-line no-param-reassign
-            user.date_added = moment(user.date_added).format('MM/DD/YYYY');
+            user.date_added = Moment(user.date_added).format('MM/DD/YYYY');
             return user;
           });
           getUsers([...responseData]);
