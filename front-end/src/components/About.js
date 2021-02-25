@@ -27,14 +27,14 @@ export default function About() {
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <Box my={4}>
         <Typography variant="h6" component="h5" gutterBottom>
-          Welcome to save my secrets 1.3.2!
+          Welcome to save my secrets 1.4!
           <br />
           In this version we have implemented the following features
           <br />
           <ul>
-            <li>Better hashing algorithm for our password</li>
-            <li>Hidden mapped source code in developer tools</li>
-            <li>Refactored /user API call to make it more secure</li>
+            <li>Hashing and salting of passwords</li>
+            <li>Admin ability to view and delete users</li>
+            <li>User ability to delete secrets</li>
           </ul>
           Hope you enjoy the updated website and Happy hacking!
         </Typography>
