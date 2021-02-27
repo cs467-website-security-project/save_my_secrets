@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
@@ -68,6 +69,9 @@ const User = (props) => {
       });
   };
 
+  const decryptSecret = (cipher) =>
+    CryptoJS.AES.decrypt(cipher, `${process.env.REACT_APP_CRYPTO_KEY}`).toString(CryptoJS.enc.Utf8);
+
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <Box mb={3}>
@@ -87,7 +91,7 @@ const User = (props) => {
             {secrets.map((row) => (
               <TableRow key={row.secret}>
                 <TableCell component="th" scope="row">
-                  {row.secret}
+                  {decryptSecret(row.secret)}
                 </TableCell>
                 <TableCell>
                   <IconButton onClick={() => deleteSecret(row.secret_id)}>
