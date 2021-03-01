@@ -22,11 +22,17 @@ const useStyles = makeStyles((theme) => ({
 
 const SigninFail = (props) => {
   const classes = useStyles();
-  const { auth, signInAttempt } = props;
+  const { auth, signInAttempt, limitAttempts } = props;
+  const limitSign = `You have ${limitAttempts} more attempts`;
+
   if (auth === false && signInAttempt)
     return (
       <Container component="main" maxWidth="xs" className={classes.buttons}>
         <span style={{ color: 'red' }}>Signin Failed</span>
+        <br />
+        {limitAttempts > 0 && <span style={{ color: 'red' }}>{limitSign}</span>}
+        <br />
+        {limitAttempts === 0 && <span style={{ color: 'red' }}>Please try again later</span>}
       </Container>
     );
   return null;
@@ -35,6 +41,7 @@ const SigninFail = (props) => {
 SigninFail.propTypes = {
   auth: PropTypes.bool.isRequired,
   signInAttempt: PropTypes.bool.isRequired,
+  limitAttempts: PropTypes.number.isRequired,
 };
 
 export default SigninFail;

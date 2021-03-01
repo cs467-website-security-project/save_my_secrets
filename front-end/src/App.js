@@ -13,6 +13,7 @@ const App = () => {
   const [signInAttempt, setSignInAttempt] = useState(false);
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState(null);
+  const [limitAttempts, setLimitAttempts] = useState(5);
 
   return (
     <Container maxWidth="sm">
@@ -29,6 +30,8 @@ const App = () => {
                 signInAttempt={setSignInAttempt}
                 setUserId={setUserId}
                 setUsername={setUsername}
+                setLimitAttempts={setLimitAttempts}
+                limitAttempts={limitAttempts}
               />
             )}
           />
@@ -40,6 +43,7 @@ const App = () => {
             signInAttempt={signInAttempt}
             userId={userId}
             username={username}
+            limitAttempts={limitAttempts}
           />
         </Box>
       </HashRouter>
