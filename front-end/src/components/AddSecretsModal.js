@@ -1,4 +1,5 @@
 import React from 'react';
+import CryptoJS from 'crypto-js';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -43,7 +44,11 @@ const AddSecretsModal = ({ userId, secretUpdate, secretUpdateCount }) => {
     setOpen(false);
 
     const newSecret = new URLSearchParams();
-    newSecret.append('secret', secret);
+    const encrypted = CryptoJS.AES.encrypt(
+      secret,
+      `${process.env.REACT_APP_CRYPTO_KEY}`
+    ).toString();
+    newSecret.append('secret', encrypted);
     newSecret.append('userId', userId);
 
     const config = {
