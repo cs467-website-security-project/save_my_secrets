@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import ReCAPTCHA from 'react-google-recaptcha';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -34,6 +34,30 @@ const SignIn = (props) => {
   const classes = useStyles();
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [showSignInForm, setShowSignInForm] = useState(true);
+  const [recaptchaDisabled, setRecaptchaEnabled] = useState(true);
+  const [blockAttempt, setBlockAttempt] = useState(true);
+  const {
+    onAuthChange,
+    setUserId,
+    setUsername,
+    signInAttempt,
+    setLimitAttempts,
+    limitAttempts,
+  } = props;
+
+  const onRecap = (val) => {
+    if (val) setRecaptchaEnabled(false);
+  };
+
+  const decrementAttempts = () => {
+    if (limitAttempts <= 1) {
+      setLimitAttempts(limitAttempts - 1);
+      setBlockAttempt(false);
+      setRecaptchaEnabled(true);
+      return;
+    }
+    setLimitAttempts(limitAttempts - 1);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -53,9 +77,9 @@ const SignIn = (props) => {
       .then((res) => {
         if (res.status === 200) {
           console.log('Login SUCCESS');
-          props.onAuthChange(true);
-          props.setUserId(res.data);
-          props.setUsername(username.value);
+          onAuthChange(true);
+          setUserId(res.data);
+          setUsername(username.value);
           setShowSignInForm(false);
           setShowRegisterForm(false);
         }
@@ -63,10 +87,10 @@ const SignIn = (props) => {
       .catch((err) => {
         if (err.response.status === 401) {
           console.log('Invalid credentials');
-          props.signInAttempt(true);
+          signInAttempt(true);
         } else {
           console.log('Issue with Authentication server');
-          props.signInAttempt(true);
+          signInAttempt(true);
         }
       });
   };
@@ -100,8 +124,18 @@ const SignIn = (props) => {
                 id="password"
                 autoComplete="current-password"
               />
+              <br />
+              <br />
+              <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} onChange={onRecap} />
+              <br />
               <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={recaptchaDisabled}
+                  onClick={decrementAttempts}
+                >
                   Sign In
                 </Button>
                 <Button
@@ -109,6 +143,7 @@ const SignIn = (props) => {
                   variant="outlined"
                   color="primary"
                   onClick={() => setShowRegisterForm(true)}
+                  disabled={recaptchaDisabled && blockAttempt}
                 >
                   Register
                 </Button>
@@ -136,6 +171,8 @@ SignIn.propTypes = {
   signInAttempt: PropTypes.func.isRequired,
   setUserId: PropTypes.func.isRequired,
   setUsername: PropTypes.func.isRequired,
+  setLimitAttempts: PropTypes.func.isRequired,
+  limitAttempts: PropTypes.number.isRequired,
 };
 
 export default SignIn;
