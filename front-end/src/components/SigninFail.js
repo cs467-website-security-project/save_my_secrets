@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
 const SigninFail = (props) => {
   const classes = useStyles();
   const { auth, signInAttempt, limitAttempts } = props;
-  const limitSign = `You have ${limitAttempts} more attempts`;
+  const limitSign = `You have ${limitAttempts} more attempts to login successfully`;
 
   if (auth === false && signInAttempt)
     return (
       <Container component="main" maxWidth="xs" className={classes.buttons}>
-        <span style={{ color: 'red' }}>Signin Failed</span>
+        <span style={{ color: 'red' }}>Login Failed</span>
         <br />
         {limitAttempts > 0 && <span style={{ color: 'red' }}>{limitSign}</span>}
         <br />
