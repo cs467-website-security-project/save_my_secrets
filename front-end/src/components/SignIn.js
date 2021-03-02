@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import PropTypes from 'prop-types';
@@ -101,7 +100,6 @@ const SignIn = (props) => {
         <>
           <div className={classes.paper}>
             <SetSecurityLevel />
-            <InfoOutlinedIcon color="primary" fontSize="large" />
             <form className={classes.form} noValidate onSubmit={handleLogin}>
               <TextField
                 variant="outlined"

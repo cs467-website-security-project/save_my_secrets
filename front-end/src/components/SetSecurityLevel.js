@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -18,44 +17,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SetSecurityLevel() {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
+    switch (event.target.value) {
+      case '1.0':
+        window.location.href = 'http://35.224.40.226:5000/#/';
+        break;
+      case '1.3.2':
+        window.location.href = 'http://35.224.60.191:5000/#/';
+        break;
+      case '1.4':
+        window.location.href = 'http://34.122.127.218:5000/#/';
+        break;
+      default:
+        break;
+    }
   };
 
   return (
     <div>
-      <Button className={classes.button} onClick={handleOpen}>
-        Security Level
-      </Button>
+      <div className={classes.div}>Select Website Version</div>
       <FormControl className={classes.formControl}>
-        <Select
-          labelId="secLevel-label"
-          id="secLevel"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value={0} selected="selected">
-            0
-          </MenuItem>
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
+        <Select labelId="secLevel-label" id="secLevel" onChange={handleChange}>
+          <MenuItem value="1.0">v1.0</MenuItem>
+          <MenuItem value="1.3.2">v1.3.2</MenuItem>
+          <MenuItem value="1.4">v1.4</MenuItem>
         </Select>
       </FormControl>
     </div>
