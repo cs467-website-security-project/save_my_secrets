@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import axios from 'axios';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,6 +34,7 @@ const Register = () => {
   const [registerSuccess, setregisterSuccess] = useState(false);
   const [usernameInUse, setusernameInUse] = useState(false);
   const [serverError, setserverError] = useState(false);
+  const [statePassword, setStatePassword] = useState('');
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -100,7 +102,11 @@ const Register = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => {
+              setStatePassword(e.target.value);
+            }}
           />
+          <PasswordStrengthBar password={statePassword} minLength={8} />
           <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
             <Button type="submit" variant="outlined" color="primary">
               Register
