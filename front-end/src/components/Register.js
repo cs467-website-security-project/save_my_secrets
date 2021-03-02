@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import CryptoJS from 'crypto-js';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import axios from 'axios';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,12 +27,12 @@ const useStyles = makeStyles((theme) => ({
     // display: 'block',//TODO: center buttons?
   },
 }));
-
 const Register = () => {
   const classes = useStyles();
   const [registerSuccess, setregisterSuccess] = useState(false);
   const [usernameInUse, setusernameInUse] = useState(false);
   const [serverError, setserverError] = useState(false);
+  const [statePassword, setStatePassword] = useState('');
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -43,13 +43,11 @@ const Register = () => {
       password: password.value,
       salt,
     };
-
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-
     axios
       .post(`${process.env.REACT_APP_BACKEND_SERVICE}/register`, payload, config)
       .then((res) => {
@@ -74,7 +72,6 @@ const Register = () => {
         }
       });
   };
-
   return (
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <div className={classes.paper}>
@@ -100,7 +97,11 @@ const Register = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => {
+              setStatePassword(e.target.value);
+            }}
           />
+          <PasswordStrengthBar password={statePassword} minLength={8} />
           <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
             <Button type="submit" variant="outlined" color="primary">
               Register
@@ -116,5 +117,4 @@ const Register = () => {
     </Container>
   );
 };
-
 export default Register;
