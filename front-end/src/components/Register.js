@@ -115,7 +115,7 @@ const Register = () => {
           <PasswordStrengthBar password={statePassword} minLength={8} />
           <div>
             Password must be at least 8 characters long, have 1 lowercase, 1 uppercase, 1 number,
-            and 1 special character.
+            and 1 special character (!@#$%^&).
           </div>
           <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
             <Button type="submit" variant="outlined" color="primary" disabled={disableRegister}>
