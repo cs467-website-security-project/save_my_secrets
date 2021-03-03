@@ -33,6 +33,16 @@ const Register = () => {
   const [usernameInUse, setusernameInUse] = useState(false);
   const [serverError, setserverError] = useState(false);
   const [statePassword, setStatePassword] = useState('');
+  const [disableRegister, setDisableRegister] = useState(true);
+
+  const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})');
+  const checkPassword = (password) => {
+    if (strongRegex.test(password)) {
+      setDisableRegister(false);
+    } else {
+      setDisableRegister(true);
+    }
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -99,11 +109,16 @@ const Register = () => {
             autoComplete="current-password"
             onChange={(e) => {
               setStatePassword(e.target.value);
+              checkPassword(statePassword);
             }}
           />
           <PasswordStrengthBar password={statePassword} minLength={8} />
+          <div>
+            Password must be at least 8 characters long, have 1 lowercase, 1 uppercase, 1 number,
+            and 1 special character.
+          </div>
           <ButtonGroup variant="contained" color="primary" className={classes.buttons}>
-            <Button type="submit" variant="outlined" color="primary">
+            <Button type="submit" variant="outlined" color="primary" disabled={disableRegister}>
               Register
             </Button>
           </ButtonGroup>
