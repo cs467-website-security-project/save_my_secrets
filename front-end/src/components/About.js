@@ -27,16 +27,25 @@ export default function About() {
     <Container component="main" maxWidth="xs" className={classes.buttons}>
       <Box my={4}>
         <Typography variant="h6" component="h5" gutterBottom>
-          Welcome to save my secrets 1.4!
+          Welcome to save my secrets 1.5!
           <br />
-          In this version we have implemented the following features
+          This is the final release version for the CS467 class
+          <br />
+          <br />
+          In this version we have implemented the following features:
           <br />
           <ul>
-            <li>Hashing and salting of passwords</li>
-            <li>Admin ability to view and delete users</li>
-            <li>User ability to delete secrets</li>
+            <li>Secrets are encrypted and decrypted on front-end</li>
+            <li>
+              Added recaptcha v2 which keeps login/register button disabled until it is passed.
+            </li>
+            <li>Dropdown menu links finally link to other live sites.</li>
+            <li>Strong passwords are enforced with a strength bar provided</li>
+            <li>
+              Back-end has middleware to prevent bruteforcing on /login and /register endpoints.
+            </li>
           </ul>
-          Hope you enjoy the updated website and Happy hacking!
+          Hope you enjoy the website and Happy hacking!
         </Typography>
       </Box>
     </Container>
