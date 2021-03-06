@@ -5,10 +5,11 @@ Save My Secrets is a single page application made with React and Node/Express to
 ## Production Deployments (live sites)
 
 - [v1.0](http://35.224.40.226:5000/#/)
-- [v1.1](http://35.192.183.39:5000/#/)
-- [v1.2](http://35.226.176.34:5000/#/)
+- [v1.1](http://35.225.223.58:5000/#/)
+- [v1.2](http://34.122.111.35:5000/#/)
 - [v1.3.2](http://35.224.60.191:5000/#/)
 - [v1.4](http://34.122.127.218:5000/#/)
+- [v1.5](http://35.225.200.240:5000/#/)
 
 ## Instructions to run this app locally
 
@@ -55,3 +56,4 @@ Save My Secrets is a single page application made with React and Node/Express to
 - [v1.1](https://docs.google.com/document/d/1ba__xUNUEnI-te9-6eFxmma6F_FlkA8m427E3zd21UA/edit?usp=sharing)
 - [v1.2](https://docs.google.com/document/d/1EQudqb8eeEMnyLfhe7GBZclVeWz1V37OdBJOj1rEmfU/edit?usp=sharing)
 - [v1.3](https://docs.google.com/document/d/1JSFHFV5U_26cNBEl-aS5H_pXir9ZHqIxx5A323ZRoUo/edit?usp=sharing)
+- [v1.4](https://docs.google.com/document/d/1B4bvayGP7xXw-2zXmcmic-cMcrJdVCukRN1oWao9TXs/edit?usp=sharing)
