@@ -57,3 +57,7 @@ Save My Secrets is a single page application made with React and Node/Express to
 - [v1.2](https://docs.google.com/document/d/1EQudqb8eeEMnyLfhe7GBZclVeWz1V37OdBJOj1rEmfU/edit?usp=sharing)
 - [v1.3](https://docs.google.com/document/d/1JSFHFV5U_26cNBEl-aS5H_pXir9ZHqIxx5A323ZRoUo/edit?usp=sharing)
 - [v1.4](https://docs.google.com/document/d/1B4bvayGP7xXw-2zXmcmic-cMcrJdVCukRN1oWao9TXs/edit?usp=sharing)
+- [v1.5](https://docs.google.com/document/d/19Enf1h7AQGz8ty89MV98tErf02JOoNCTOlkgZo6ytOM/edit?usp=sharing)
+
+## Note
+- Due to time constraints we did not properly setup a web server to serve our React production code
