@@ -2,15 +2,6 @@
 
 Save My Secrets is a single page application made with React and Node/Express to research the vulnerabilites around websites and around password safety. We will be incrementally securing the Save My Secrets web application with each release by performing a penetration test and creating a write-up for that specific version. We intend to use the tools in Kali linux and prevalent tools to gain and exploit passwords. Feel free to checkout our current live sites and play around in those environments. Happy Hacking!
 
-## Production Deployments (live sites)
-
-- [v1.0](http://35.224.40.226:5000/#/)
-- [v1.1](http://35.225.223.58:5000/#/)
-- [v1.2](http://34.122.111.35:5000/#/)
-- [v1.3.2](http://35.224.60.191:5000/#/)
-- [v1.4](http://34.122.127.218:5000/#/)
-- [v1.5](http://35.225.200.240:5000/#/)
-
 ## Instructions to run this app locally
 
 (Note: you must have `node v.14.15.4+` and `mariadb v10.3.27+` on your system to run this project locally. The following instructions are for a `unix` based system.)
@@ -61,3 +52,4 @@ Save My Secrets is a single page application made with React and Node/Express to
 
 ## Note
 - Due to time constraints we did not properly setup a web server to serve our React production code
+- Production deployments were setup on Google Cloud Platform with Ubuntu VM instances during the spring term (01/20 - 03/20), but they are no longer available due to fiscal constraints and policy issues with Google. 
