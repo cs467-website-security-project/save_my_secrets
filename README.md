@@ -50,6 +50,15 @@ Save My Secrets is a single page application made with React and Node/Express to
 - [v1.4](https://docs.google.com/document/d/1B4bvayGP7xXw-2zXmcmic-cMcrJdVCukRN1oWao9TXs/edit?usp=sharing)
 - [v1.5](https://docs.google.com/document/d/19Enf1h7AQGz8ty89MV98tErf02JOoNCTOlkgZo6ytOM/edit?usp=sharing)
 
+## Save My Secrets Poster
+
+![alt text](SaveMySecrets_Poster.png)
+
+## Save My Secrets Final Report
+
+[Final Report](https://docs.google.com/document/d/1ypZ8GtlM5cC3wSdA8XUcVM5Fk_zF3z4oyV3ONPWxRd4/edit?usp=sharing)
+
 ## Note
+
 - Due to time constraints we did not properly setup a web server to serve our React production code
-- Production deployments were setup on Google Cloud Platform with Ubuntu VM instances during the spring term (01/20 - 03/20), but they are no longer available due to fiscal constraints and policy issues with Google. 
+- Production deployments were setup on Google Cloud Platform with Ubuntu VM instances during the spring term (01/20 - 03/20), but they are no longer available due to fiscal constraints and policy issues with Google.
