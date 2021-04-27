@@ -21,13 +21,13 @@ export default function SetSecurityLevel() {
   const handleChange = (event) => {
     switch (event.target.value) {
       case '1.0':
-        window.open('http://35.224.40.226:5000/#/', '_blank');
+        window.open('', '_blank');
         break;
       case '1.3.2':
-        window.open('http://35.224.60.191:5000/#/', '_blank');
+        window.open('', '_blank');
         break;
       case '1.4':
-        window.open('http://34.122.127.218:5000/#/', '_blank');
+        window.open('', '_blank');
         break;
       default:
         break;
